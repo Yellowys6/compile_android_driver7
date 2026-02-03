@@ -1,1 +1,1 @@
-﻿obj-m += rwProcMem_module.o
+obj-m += hwBreakpointProc_module.o

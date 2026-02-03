@@ -50,7 +50,8 @@ static int handler_pre(struct kprobe *kp, struct pt_regs *regs)
 {
     struct dir_context *ctx = (struct dir_context *)regs->regs[1];
     old_filldir = ctx->actor;
-    ctx->actor = my_filldir;
+    // 如果编译器要求显式转换
+    ctx->actor = (filldir_t)my_filldir;
     return 0;
 }
 
@@ -59,7 +60,7 @@ static struct kprobe kp_hide_procfs_dir = {
     .pre_handler = handler_pre,
 };
 
-static bool start_hide_procfs_dir(const char* hide_dir_name)
+static __maybe_unused bool start_hide_procfs_dir(const char* hide_dir_name)
 {
 	//这里原理上可以换成SKRoot的汇编写法。避免kprobe。
     int ret;
@@ -73,7 +74,7 @@ static bool start_hide_procfs_dir(const char* hide_dir_name)
     return true;
 }
 
-static void stop_hide_procfs_dir(void)
+static __maybe_unused void stop_hide_procfs_dir(void)
 {
     unregister_kprobe(&kp_hide_procfs_dir);
     printk_debug("[hide_procfs_dir] kprobe removed\n");

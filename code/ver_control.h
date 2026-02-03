@@ -1,5 +1,6 @@
-﻿#ifndef VERSION_CONTROL_H_
-#define VERSION_CONTROL_H_
+#ifndef VER_CONTROL_H_
+#define VER_CONTROL_H_
+#include <linux/version.h>
 
 // 独立内核模块入口模式
 #define CONFIG_MODULE_GUIDE_ENTRY
@@ -7,10 +8,19 @@
 // 生成proc用户层交互节点文件
 #define CONFIG_USE_PROC_FILE_NODE
 // 隐蔽通信密钥
-#define CONFIG_PROC_NODE_AUTH_KEY "c2a2b5792edd296763fdfc72cff44380"
+#define CONFIG_PROC_NODE_AUTH_KEY "aurorakey07123456789"
 
-// 打印内核调试信息
+// 调试打印模式
 //#define CONFIG_DEBUG_PRINTK
+
+// 动态寻址模式
+#define CONFIG_KALLSYMS_LOOKUP_NAME
+
+// 精准命中记录模式
+#define CONFIG_MODIFY_HIT_NEXT_MODE
+
+// 反PTRACE侦测模式
+#define CONFIG_ANTI_PTRACE_DETECTION_MODE
 
 #ifndef KERNEL_VERSION
 #define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))
@@ -33,9 +43,9 @@
 //#define MY_LINUX_VERSION_CODE KERNEL_VERSION(4,19,113)
 //#define MY_LINUX_VERSION_CODE KERNEL_VERSION(5,4,61)
 //#define MY_LINUX_VERSION_CODE KERNEL_VERSION(5,10,43)
-#define MY_LINUX_VERSION_CODE KERNEL_VERSION(5,15,41)
+//#define MY_LINUX_VERSION_CODE KERNEL_VERSION(5,15,41)
 //#define MY_LINUX_VERSION_CODE KERNEL_VERSION(6,1,75)
-//#define MY_LINUX_VERSION_CODE KERNEL_VERSION(6,6,30)
+#define MY_LINUX_VERSION_CODE KERNEL_VERSION(6,6,30)
 #endif
 
 #ifdef CONFIG_DEBUG_PRINTK
@@ -44,4 +54,4 @@
 static inline void printk_debug(char *fmt, ...) {}
 #endif
 
-#endif /* VERSION_CONTROL_H_ */
+#endif /* VER_CONTROL_H_ */
